@@ -19,7 +19,7 @@ COOKIE = {"session": ID}
 
 for i in range(1, 26):
     subprocess.run([f"mkdir -p Day{i}"], shell=True, cwd=PROJECT_DIR)
-    subprocess.run(["touch script.py subject.txt input.txt"], shell=True, cwd=f"{PROJECT_DIR}Day{i}")
+    subprocess.run(["touch script.py main.cpp subject.txt input.txt"], shell=True, cwd=f"{PROJECT_DIR}Day{i}")
 
     # fetching subjects
     response = requests.get(f"{URL}{YEAR}/day/{i}", cookies=COOKIE)
