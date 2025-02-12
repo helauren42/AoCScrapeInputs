@@ -5,10 +5,11 @@ import subprocess
 from bs4 import BeautifulSoup
 
 URL = "https://adventofcode.com/"
-YEAR = int(sys.argv[1])
-PROJECT_DIR = f"{os.path.expanduser("~")}/Projects/AVC/{YEAR}/"
+YEAR = sys.argv[1]
+cwd = os.path.curdir
+PROJECT_DIR = f"{cwd}/{YEAR}/"
 
-os.system(f"mkdir -p {str(YEAR)}")
+os.system(f"mkdir -p {YEAR}")
 
 def getCookie():
     with open("secrets.txt", "r") as file:
@@ -20,7 +21,7 @@ COOKIE = {"session": ID}
 for i in range(1, 26):
     subprocess.run([f"mkdir -p Day{i}"], shell=True, cwd=PROJECT_DIR)
     subprocess.run(["touch script.py main.cpp subject.txt input.txt"], shell=True, cwd=f"{PROJECT_DIR}Day{i}")
-
+    subprocess.run(["if [ ! -s main.cpp ]; then cat ../../draft.cpp > main.cpp; fi "], shell=True, cwd=f"{PROJECT_DIR}Day{i}")
     # fetching subjects
     response = requests.get(f"{URL}{YEAR}/day/{i}", cookies=COOKIE)
     text = response.content.decode('utf-8')
